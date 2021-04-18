@@ -2,7 +2,7 @@ import store from '../../config/store'
 import { SPRITE_SIZE, MAP_WIDTH, MAP_HEIGHT } from '../../config/constants'
 
 let axe = store.getState().player.axePicked
-
+export {axe}
 
 export default function handleMovement(player) {
 
@@ -55,6 +55,7 @@ export default function handleMovement(player) {
   function observeImpassable(oldPos, newPos) {
     const nextTile = getNextTile(newPos)
 
+    // can cut through trees when axe equipped
     if (axe) {return nextTile < 6}
 
     return nextTile < 5
@@ -63,8 +64,14 @@ export default function handleMovement(player) {
 
   function pickUpAxe(newPos) {
     const nextTile = getNextTile(newPos)
-
-    if (nextTile === 2) {axe = true}
+    let axeTile = store.getState().map.tiles[0][1]
+    if (nextTile === 2) {
+      axe = true
+    }
+    if (axe) {
+      axeTile = 0
+    }
+    console.log(axeTile)
     return axe
   }
 
@@ -85,10 +92,11 @@ export default function handleMovement(player) {
   function attemptMove(direction) {
     const oldPos = store.getState().player.position
     const newPos = getNewPosition(oldPos, direction)
-    getNextTile(newPos)
     
-    if(observeBoundaries(oldPos, newPos) && observeImpassable(oldPos, newPos))
+    if(observeBoundaries(oldPos, newPos) && observeImpassable(oldPos, newPos)) {
+      getNextTile(newPos)
       dispatchMove(direction, newPos)
+    }
   }
   
 

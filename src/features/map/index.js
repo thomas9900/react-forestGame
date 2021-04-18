@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { SPRITE_SIZE } from '../../config/constants'
 import store from '../../config/store'
+import {axe as axe1}  from '../player/movement'
 
 import './styles.css'
 
@@ -48,7 +49,7 @@ function MapRow(props) {
 }
 
 function Map(props) {
-  console.log(store.getState())
+  console.log(axe1)
 
   return (
     <div

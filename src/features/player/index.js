@@ -9,7 +9,7 @@ function Player(props) {
 
   const playerImg = `url('${walkSprite}')`
   const axePickedImg = `url('${axe}'), url('${walkSprite}')`
-  const backImg = (props.axePicked === true ? axePickedImg : playerImg)
+  const backImg = (props.axePicked ? axePickedImg : playerImg)
 
   return (
     <div
